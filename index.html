@@ -523,7 +523,10 @@
       contentType: "application/json",
       data: JSON.stringify(data),
       success: function(response) {
-        if (response === 'E-mail sent') alert('Thank you for your enquiry. We will reach out to you as soon as possible.')
+        if (response === 'E-mail sent') {
+          alert('Thank you for your enquiry. We will reach out to you as soon as possible.');
+          $('#queto-form').trigger("reset");
+        }
         else alert('Failed to submit enquiry. Please try again');
       },
       error: function(response) {
@@ -531,8 +534,8 @@
       }
     });
 
-    console.log(data);
-    // alert('Submit form');
+    // console.log(data);
+    // // alert('Submit form');
   })
 </script>
 </body>
