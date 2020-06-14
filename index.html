@@ -133,28 +133,29 @@
               <h2 class="title">Contact Us</h2>
             </div>
             <p class="line-h-3 text-rgba">Submit this form we will reach you within 24/48 hours. If you want to reach us immediate then you can contact us on our mobile/whatsapp number.</p>
-            <form id="queto-form" method="post" action="http://themeht.com/consulterz/html/php/contact.php">
+            <form id="queto-form" method="post">
               <div id="formmessage"></div>
               <div class="form-group">
-                <input id="form_name" type="text" name="name" class="form-control" placeholder="Your Name" required="required" data-error="Name is required.">
+                <input id="form_name" type="text" name="name" class="form-control" placeholder="Your Name*" required="required" data-error="Name is required.">
                 <div class="help-block with-errors"></div>
               </div>
               <div class="form-group">
-                <input id="form_email" type="email" name="email" class="form-control" placeholder="Your Email" required="required" data-error="Valid email is required.">
+                <input id="form_email" type="email" name="email" class="form-control" placeholder="Your Email">
                 <div class="help-block with-errors"></div>
               </div>
               <div class="form-group">
-                <input id="form_number" type="text" name="phone" class="form-control" placeholder="Phone Number" required="required">
+                <input id="form_number" type="text" name="phone" class="form-control" placeholder="Phone Number*" required="required" data-error="Valid phone is required.">
+                <div class="help-block with-errors"></div>
               </div>
               <div class="form-group">
-                <select name="select" class="form-control">
+                <select name="select" class="form-control" id="form_service">
                   <option>- Select Service</option>
                   <option>GST Registration</option>
                   <option>GST Return</option>
                   <option>IT Return/Registration</option>
                 </select>
               </div>
-              <button class="btn btn-2 btn-border white mt-5"> <span class="btn-icon btn-arrow"></span>
+              <button class="btn btn-2 btn-border white mt-5 submit"> <span class="btn-icon btn-arrow"></span>
                 <span class="btn-text">Submit</span>
               </button>
             </form>
@@ -496,7 +497,8 @@
 <!-- inject js start -->
 
 <!--== jquery -->
-<script src="js/theme.js" defer></script>
+
+<script src="js/theme.js"></script>
 
 <!--== theme-plugin -->
 <script src="js/theme-plugin.js" defer></script>
@@ -506,6 +508,33 @@
 
 <!-- inject js end -->
 
+<script type="text/javascript">
+  $(document).on('click', '.submit', () => {
+    const data = {
+      name: $('#form_name').val(),
+      email: $('#form_email').val(),
+      phone: $('#form_number').val(),
+      service: $('#form_service').val()
+    }
+
+    $.ajax({
+      method: "POST",
+      url: "/response",
+      contentType: "application/json",
+      data: JSON.stringify(data),
+      success: function(response) {
+        if (response === 'E-mail sent') alert('Thank you for your enquiry. We will reach out to you as soon as possible.')
+        else alert('Failed to submit enquiry. Please try again');
+      },
+      error: function(response) {
+        alert("Error occured");
+      }
+    });
+
+    console.log(data);
+    // alert('Submit form');
+  })
+</script>
 </body>
 
 </html>
