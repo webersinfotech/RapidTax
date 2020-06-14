@@ -510,29 +510,31 @@
 
 <script type="text/javascript">
   $(document).on('click', '.submit', () => {
-    const data = {
-      name: $('#form_name').val(),
-      email: $('#form_email').val(),
-      phone: $('#form_number').val(),
-      service: $('#form_service').val()
-    }
-
-    $.ajax({
-      method: "POST",
-      url: "/response",
-      contentType: "application/json",
-      data: JSON.stringify(data),
-      success: function(response) {
-        if (response === 'E-mail sent') {
-          alert('Thank you for your enquiry. We will reach out to you as soon as possible.');
-          $('#queto-form').trigger("reset");
-        }
-        else alert('Failed to submit enquiry. Please try again');
-      },
-      error: function(response) {
-        alert("Error occured");
+    if ( $('#queto-form')[0].checkValidity() ) {
+      const data = {
+        name: $('#form_name').val(),
+        email: $('#form_email').val(),
+        phone: $('#form_number').val(),
+        service: $('#form_service').val()
       }
-    });
+
+      $.ajax({
+        method: "POST",
+        url: "/response",
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function(response) {
+          if (response === 'E-mail sent') {
+            alert('Thank you for your enquiry. We will reach out to you as soon as possible.');
+            $('#queto-form').trigger("reset");
+          }
+          else alert('Failed to submit enquiry. Please try again');
+        },
+        error: function(response) {
+          alert("Error occured");
+        }
+      });
+    }
 
     // console.log(data);
     // // alert('Submit form');
