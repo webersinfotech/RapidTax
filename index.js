@@ -50,6 +50,10 @@ app.post('/response', (req, res) => {
     });
 })
 
+app.get('*', (req, res) => {
+  res.status(404).send('You lost somewhere');
+});
+
 app.listen(3000, () => {
     console.log('Listening on port 3000');
 })
